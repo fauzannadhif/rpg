@@ -1,7 +1,7 @@
 from django.db import models
 
 class Booking(models.Model):
-    hotel_id = models.IntegerField(unique=True)
+    hotel_id = models.IntegerField()
     year = models.IntegerField()
     month = models.IntegerField()
     daily_bookings = models.TextField()  # JSON field to store daily booking data

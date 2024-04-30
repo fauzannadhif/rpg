@@ -4,7 +4,7 @@ import requests
 import urllib
 import json
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.conf import settings
 from celery import shared_task
 from celery.utils.log import get_task_logger
@@ -17,11 +17,13 @@ logger = get_task_logger(__name__)
 @shared_task
 def update_dashboard_data():
     # Fetch data from Data Provider
-    params = {}
+    now = datetime.now()
+    update__gte = now - timedelta(minutes=1)
+    update__lte = now
+    params = {"updated__gte": update__gte, "updated__lte": update__lte}
     query_string = urllib.parse.urlencode(params)
-    url = settings.DATA_PROVIDER_URL + "/events" + query_string
+    url = settings.DATA_PROVIDER_URL + "/events" + "?" + query_string
     data = requests.get(url).json()
-    print(f"Data: {data}")
 
     for event in data['events']:
         hotel_id = event['hotel_id']
