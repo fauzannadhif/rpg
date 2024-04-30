@@ -132,7 +132,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DATA_PROVIDER_URL = os.environ.get("DATA_PROVIDER_URL", "http://localhost:8000")
+DATA_PROVIDER_URL = os.environ.get("DATA_PROVIDER_URL", "http://localhost:7000")
 
 CELERY_BEAT_SCHEDULE = {
     'update-dashboard-data': {
