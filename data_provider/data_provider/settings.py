@@ -141,3 +141,8 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=1),
     },
 }
+
+RABBITMQ_HOST = os.environ.get("RABBITMQ_HOST", 'localhost')
+RABBITMQ_PORT = os.environ.get("RABBITMQ_PORT", '5672')
+RABBITMQ_USERNAME = 'guest'
+RABBITMQ_PASSWORD = 'guest'

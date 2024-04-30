@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  data-provider:
+    build: ./data_provider/
+    ports:
+      - "7000:7000"
+    environment:
+      - DATA_PROVIDER_URL=http://data-provider:7000
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+  
+  dashboard-service:
+    build: ./dashboard_service/
+    ports:
+      - "9000:9000"
+    environment:
+      - DATA_PROVIDER_URL=http://data-provider:7000
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # AMQP port
+      - "15672:15672"  # RabbitMQ management UI
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest  # RabbitMQ default user
+      - RABBITMQ_DEFAULT_PASS=guest  # RabbitMQ default password

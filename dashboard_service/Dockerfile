@@ -20,13 +20,20 @@ RUN apk update && \
 # Upgrade pip to the latest version
 RUN pip install --no-cache-dir --upgrade pip
 
+# Install supervisor
+RUN pip install supervisor
+
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-COPY ../requirements.txt /app
+# Configure supervisord
+COPY supervisord.conf /etc/supervisord.conf
 
 # Install any dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 9000 available to the world outside this container
 EXPOSE 9000
+
+# Start supervisord
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
