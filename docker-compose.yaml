@@ -16,10 +16,10 @@ services:
       context: .
       dockerfile: dashboard_service/Dockerfile
     ports:
-      - "6000:6000"
+      - "9000:9000"
     command: >
       sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:6000"
+             python manage.py runserver 0.0.0.0:9000"
   
   send-event-worker:
     build: 

@@ -28,5 +28,5 @@ COPY ../requirements.txt /app
 # Install any dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 6000 available to the world outside this container
-EXPOSE 6000
+# Make port 9000 available to the world outside this container
+EXPOSE 9000
