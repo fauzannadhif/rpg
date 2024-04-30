@@ -4,9 +4,9 @@ import os
 from celery import Celery
 
 # Set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dashboard_service.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'data_provider.settings')
 
-app = Celery('dashboard_service')
+app = Celery('data_provider')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
@@ -17,13 +17,13 @@ app.autodiscover_tasks()
 
 # Define queues
 app.conf.task_queues = {
-    'update_dashboard_topic': {
-        'exchange': 'update_dashboard_topic',
-        'routing_key': 'update_dashboard_topic',
+    'send_event_topic': {
+        'exchange': 'send_event_topic',
+        'routing_key': 'send_event_topic',
     },
 }
 
 # Define routing rules
 app.conf.task_routes = {
-    'bookings.tasks.update_dashboard_data': {'queue': 'update_dashboard_topic'},
+    'events.tasks.send_event': {'queue': 'send_event_topic'},
 }

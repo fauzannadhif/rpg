@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 from django.conf import settings
 from celery import shared_task
 from celery.utils.log import get_task_logger
-from requests.models import PreparedRequest
 
 from .models import Booking
 

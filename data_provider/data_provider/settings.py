@@ -10,6 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+
+from datetime import timedelta
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,3 +131,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATA_PROVIDER_URL = os.environ.get("DATA_PROVIDER_URL", "http://localhost:8000")
+
+CELERY_BEAT_SCHEDULE = {
+    'send-event': {
+        'task': 'events.tasks.send_event',
+        'schedule': timedelta(minutes=1),
+    },
+}
