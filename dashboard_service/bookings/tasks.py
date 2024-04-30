@@ -24,12 +24,12 @@ def update_dashboard_data():
     url = settings.DATA_PROVIDER_URL + "/events" + "?" + query_string
     data = requests.get(url).json()
 
-    for event in data['events']:
+    for event in data:
         hotel_id = event['hotel_id']
         timestamp = event['timestamp']
         date = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%SZ').date()
         
-        # Check if DashboardData entry exists for the hotel, year, and month
+        # Check if Booking entry exists for the hotel, year, and month
         try:
             booking = Booking.objects.get(hotel_id=hotel_id, year=date.year, month=date.month)
             daily_bookings = booking.daily_bookings
